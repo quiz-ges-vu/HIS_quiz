@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History and International Studies at VU Amsterdam</title>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SNCEJ7YWDX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-SNCEJ7YWDX');
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0077B3 0%, #005a87 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0077B3 0%, #005a87 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        
+        .content {
+            padding: 50px;
+        }
+        
+        .screen {
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .intro-text {
+            font-size: 18px;
+            color: #334155;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .question-title {
+            font-size: 24px;
+            color: #0077B3;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .question-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .path-btn {
+            display: block;
+            width: 100%;
+            padding: 25px 30px;
+            margin: 15px 0;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #0f172a;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        
+        .path-btn:hover {
+            border-color: #0077B3;
+            background: #f1f5f9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,119,179,0.15);
+        }
+
+        .path-btn.selected {
+             border-color: #0077B3;
+             background: #e0f2fe;
+        }
+        
+        .ternary-question {
+            margin-bottom: 25px;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #0077B3;
+        }
+        
+        .ternary-text {
+            font-size: 17px;
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .ternary-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .ternary-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            font-weight: 500;
+            color: #475569;
+        }
+        
+        .ternary-btn:hover {
+            border-color: #0077B3;
+            background: #f0f9ff;
+        }
+        
+        .ternary-btn.active {
+            background: #0077B3;
+            color: white;
+            border-color: #0077B3;
+        }
+        
+        .btn-primary {
+            background: #0077B3;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
+        }
+        
+        .btn-primary:hover {
+            background: #005a87;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,119,179,0.3);
+        }
+        
+        .btn-primary:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .progress-bar {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #0077B3 0%, #00a8e8 100%);
+            height: 100%;
+            transition: width 0.4s ease;
+            border-radius: 4px;
+        }
+        
+        #results-container .main-title {
+            font-size: 28px;
+            color: #0077B3;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        #results-container .intro-paragraph {
+            font-size: 18px;
+            color: #334155;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .results-section h3 {
+            font-size: 24px;
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+
+        .results-section h4 {
+            font-size: 20px;
+            color: #0077B3;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .results-section p, .results-section li {
+            color: #334155;
+            font-size: 17px;
+            margin-bottom: 25px;
+        }
+
+        #results-container ul {
+            list-style-position: inside;
+            margin-left: 5px;
+            margin-bottom: 25px;
+        }
+
+        #results-container li {
+            margin-bottom: 10px;
+        }
+
+        .special-note {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .special-note h3 {
+             color: #ca8a04;
+             font-size: 20px;
+        }
+
+        .special-note p, .special-note a {
+            color: #334155;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, #0077B3 0%, #005a87 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .cta-box h3 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #0077B3;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f9ff;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .content { padding: 30px 20px; }
+            .header { padding: 30px 20px; }
+            .header h1 { font-size: 24px; }
+            .ternary-buttons { flex-direction: column; }
+            .ternary-btn { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="VU-logo-RGB.jpg" alt="Vrije Universiteit Amsterdam Logo">
+            <h1>History and International Studies</h1>
+            <p>VU Amsterdam</p>
+        </div>
+        
+        <div class="content">
+            <div id="intro-screen" class="screen active">
+                <div class="intro-text">
+                    <p style="font-size: 20px; margin-bottom: 20px; font-weight: 600; color: #0f172a;">
+                        Is History and International Studies the right fit for you?
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        This short survey will help you explore how our globally-focused, English-taught history programme aligns with your interests and goals.
+                    </p>
+                    <p style="color: #64748b; font-style: italic;">
+                        It takes about 3-4 minutes to complete.
+                    </p>
+                </div>
+                <button class="btn-primary" onclick="startSurvey()">START SURVEY</button>
+            </div>
+            
+            <div id="question-screen" class="screen">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                
+                <div id="question-container"></div>
+                
+                <button class="btn-primary" id="next-btn" onclick="nextQuestion()" disabled>
+                    Next
+                </button>
+            </div>
+            
+            <div id="results-screen" class="screen">
+                 <div id="results-container"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentQuestion = 0;
+        let userPath = '';
+        const answers = {};
+        
+        const questions = {
+            triage: {
+                id: 'triage',
+                type: 'single-choice',
+                title: 'To start, where are you currently studying or living?',
+                options: [
+                    { id: 'pathA', text: "I live abroad and I'm considering moving to the Netherlands." },
+                    { id: 'pathB', text: "I live in the Netherlands and attend an international/English-language school." },
+                    { id: 'pathC', text: "I live in the Netherlands and study in the Dutch education system." }
+                ]
+            },
+            pathA: [
+                 {
+                    id: 'q2a',
+                    type: 'ternary',
+                    title: "What is your main goal for studying a history programme abroad?",
+                    subtitle: "Thinking about your decision, rate how well each of these statements reflects your primary motivation.",
+                    options: [
+                        { id: 'career', text: 'I want a degree that provides a clear pathway to an international career, giving me a competitive edge.' },
+                        { id: 'culture', text: 'My main goal is the experience of living and learning in a vibrant, international city, connecting with diverse people and ideas.' },
+                        { id: 'scholar', text: 'I\'m looking for intellectual freedom—a programme with a unique global focus where I can explore my own historical interests with personal guidance.' }
+                    ]
+                }
+            ],
+            pathB: [
+                {
+                    id: 'q2b',
+                    type: 'ternary',
+                    title: "What do you value most in a university's teaching and community?",
+                    subtitle: "Rate how important each of the following is to you.",
+                    options: [
+                        { id: 'mentorship', text: 'Personal mentorship and direct interaction with my professors.' },
+                        { id: 'flexibility', text: 'The freedom and flexibility to choose my own research topics and specializations.' },
+                        { id: 'community', text: 'Being part of a close-knit, diverse, and international student community.' }
+                    ]
+                }
+            ],
+            pathC: [
+                {
+                    id: 'q2c',
+                    type: 'ternary',
+                    title: "When thinking about your future after your Bachelor's degree, how important are the following goals?",
+                    subtitle: "Rate the importance of each goal for you.",
+                    options: [
+                        { id: 'career', text: 'Gaining skills and perspectives that open doors to an international career.' },
+                        { id: 'dutch_career', text: 'Developing a deep expertise in Dutch and European history for a career in the Netherlands.' },
+                        { id: 'global_challenges', text: 'Being in a learning environment that connects history to today\'s urgent global challenges.' }
+                    ]
+                }
+            ],
+            common: [
+                {
+                    id: 'q3',
+                    type: 'ternary',
+                    title: "How interested would you be in exploring these historical themes and regions?",
+                    subtitle: "Rate your interest in each one.",
+                    options: [
+                        { id: 'asia', text: 'East and Southeast Asia' },
+                        { id: 'latin_america', text: 'Latin America' },
+                        { id: 'africa', text: 'Sub-Saharan Africa' },
+                        { id: 'middle_east', text: 'The Middle East & North Africa' },
+                        { id: 'environment', text: 'Environmental History & Climate Change' },
+                        { id: 'antiquity', text: 'Ancient Empires & Early Globalization' },
+                        { id: 'capitalism', text: 'Capitalism & Global Inequality' }
+                    ]
+                },
+                {
+                    id: 'q4',
+                    type: 'ternary',
+                    title: "As a historian, how appealing do these practical activities sound to you?",
+                    subtitle: "Rate how engaging you find each activity.",
+                    options: [
+                        { id: 'internship', text: 'Applying historical skills to contemporary global issues through a professional internship in international relations, heritage, or media.' },
+                        { id: 'research', text: 'Conducting your own independent research on a topic you are passionate about, from start to finish.' },
+                        { id: 'digital', text: 'Using digital tools and data to uncover and visualize hidden patterns from the past.' }
+                    ]
+                },
+                {
+                    id: 'q5',
+                    type: 'ternary',
+                    title: "How interested are you in pursuing a career in the following fields?",
+                    subtitle: "Rate your interest in each field.",
+                    options: [
+                        { id: 'ngo', text: 'International organizations (e.g., UN, NGOs)' },
+                        { id: 'journalism', text: 'Journalism and media' },
+                        { id: 'museum', text: 'Museums and cultural heritage' },
+                        { id: 'government', text: 'Government or policy work' },
+                        { id: 'academia', text: 'Academic research and teaching' }
+                    ]
+                },
+                {
+                    id: 'q6',
+                    type: 'ternary',
+                    title: "How important is it for your studies to have a deep focus on the history of the Netherlands and Europe?",
+                    subtitle: "This helps us understand your main focus.",
+                     options: [
+                        { id: 'euro_focus', text: 'A deep focus on Dutch and European history.' }
+                    ]
+                }
+            ]
+        };
+
+        let questionFlow = [];
+
+        function startSurvey() {
+            // GA Event: Track when the quiz starts
+            gtag('event', 'quiz_start', { 'quiz_name': 'HIS' });
+            
+            document.getElementById('intro-screen').classList.remove('active');
+            document.getElementById('question-screen').classList.add('active');
+            questionFlow = [questions.triage];
+            renderQuestion(0);
+        }
+
+        function renderQuestion(index) {
+            const container = document.getElementById('question-container');
+            const question = questionFlow[index];
+            
+            let html = `
+                <h2 class="question-title">${question.title}</h2>
+                ${question.subtitle ? `<p class="question-subtitle">${question.subtitle}</p>` : ''}
+            `;
+            
+            if (question.type === 'single-choice') {
+                question.options.forEach((opt, i) => {
+                    html += `<button class="path-btn" id="btn-${opt.id}" onclick="selectPath('${opt.id}')">${opt.text}</button>`;
+                });
+                 document.getElementById('next-btn').style.display = 'none';
+            } else if (question.type === 'ternary') {
+                 document.getElementById('next-btn').style.display = 'block';
+                 const labels = question.id === 'q2a'
+                    ? ['Describes me well', 'Describes me somewhat', 'Doesn\'t describe me']
+                    : (question.id === 'q2c' || question.id === 'q2b' || question.id === 'q6')
+                    ? ['Very Important', 'Somewhat Important', 'Not a Priority']
+                    : (question.id === 'q4')
+                    ? ['Very Engaging', 'Somewhat Engaging', 'Not Really Engaging']
+                    : ['Very Interested', 'Somewhat Interested', 'Not Really Interested'];
+
+                question.options.forEach((opt, i) => {
+                    html += `
+                        <div class="ternary-question">
+                            <div class="ternary-text">${opt.text}</div>
+                            <div class="ternary-buttons">
+                                <button class="ternary-btn" onclick="answerTernary('${question.id}', '${opt.id}', 'high', event)">${labels[0]}</button>
+                                <button class="ternary-btn" onclick="answerTernary('${question.id}', '${opt.id}', 'medium', event)">${labels[1]}</button>
+                                <button class="ternary-btn" onclick="answerTernary('${question.id}', '${opt.id}', 'low', event)">${labels[2]}</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            container.innerHTML = html;
+            updateProgress();
+        }
+
+        function selectPath(path) {
+            // GA Event: Track which path was selected
+            gtag('event', 'quiz_path_selected', {
+                'quiz_name': 'HIS',
+                'path_chosen': path
+            });
+
+            userPath = path;
+            answers.triage = path;
+            document.querySelectorAll('.path-btn').forEach(btn => btn.classList.remove('selected'));
+            document.getElementById(`btn-${path}`).classList.add('selected');
+            questionFlow = [questions.triage, ...questions[path], ...questions.common];
+            setTimeout(() => { nextQuestion(); }, 300);
+        }
+
+        function answerTernary(questionId, optionId, value, event) {
+            // GA Event: Track each individual answer
+            gtag('event', 'quiz_answer', {
+                'quiz_name': 'HIS',
+                'question_id': questionId,
+                'option_id': optionId,
+                'answer_value': value
+            });
+            
+            const buttons = event.target.parentElement.querySelectorAll('.ternary-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            if (!answers[questionId]) answers[questionId] = {};
+            answers[questionId][optionId] = value;
+            const question = questionFlow[currentQuestion];
+            const allAnswered = question.options.every(opt => answers[questionId] && answers[questionId][opt.id]);
+            document.getElementById('next-btn').disabled = !allAnswered;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questionFlow.length) {
+                renderQuestion(currentQuestion);
+                document.getElementById('next-btn').disabled = true;
+            } else {
+                showResults();
+            }
+        }
+        
+        function updateProgress() {
+            const progress = (currentQuestion / (questionFlow.length -1)) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            // GA Event: Track when the quiz is completed
+            gtag('event', 'quiz_complete', { 'quiz_name': 'HIS' });
+            
+            document.getElementById('question-screen').classList.remove('active');
+            document.getElementById('results-screen').classList.add('active');
+            const resultsHTML = generateResultsHTML();
+            document.getElementById('results-container').innerHTML = resultsHTML;
+        }
+
+        function generateResultsHTML() {
+            let html = `<h2 class="main-title">Your Journey in History and International Studies</h2>`;
+
+            // --- Path-Specific Hooks ---
+            let pathHook = '';
+            if (userPath === 'pathA') {
+                pathHook = `<p class="intro-paragraph">Choosing to move to a new country is a big step, and this profile shows how the HIS programme at VU Amsterdam aligns with your goals. Amsterdam is one of Europe's most English-friendly cities, making it easy to feel at home while you immerse yourself in its vibrant culture. Importantly, HIS is the <strong>only English-taught history BA in the city</strong>, offering a unique opportunity to combine your academic passion with an international experience.</p>`;
+            } else if (userPath === 'pathB') {
+                pathHook = `<p class="intro-paragraph">As you compare your options in Amsterdam, this profile highlights what makes the HIS programme at VU Amsterdam unique. A key difference is our learning environment. You'll study in <strong>small seminars of 15-20 students</strong> with personal mentorship, a distinct alternative to the large first-year lectures at other universities. Furthermore, HIS is the <strong>only English-taught history BA in the city.</strong></p>`;
+            } else { // pathC
+                 pathHook = `<p class="intro-paragraph">Your goal to build an international career is a perfect match for the HIS programme. This profile outlines how our English-taught, globally-focused curriculum at VU Amsterdam will help you achieve that by immersing you in a diverse classroom and providing a unique perspective that is highly valued in today's interconnected world.</p>`;
+            }
+            html += pathHook;
+
+
+            // --- Geschiedenis Off-Ramp Check ---
+            const q2c_dutch_career = answers.q2c && answers.q2c.dutch_career === 'high';
+            const q6_euro_focus = answers.q6 && answers.q6.euro_focus === 'high';
+            if (userPath === 'pathC' && q2c_dutch_career && q6_euro_focus) {
+                 html += `<div class="special-note">
+                            <h3>A Note on Finding Your Best Fit at VU Amsterdam</h3>
+                            <p>Thank you for sharing your interests. Based on your goals—particularly your interest in a career in the Netherlands and your focus on European history—you have a great choice to make.</p>
+                            <p style="margin-top:15px;">Both of our history tracks offer the same core skills and small-scale teaching. However, the Dutch-taught <strong>'Geschiedenis'</strong> programme might align even more directly with your specific path. Its deep dive into Dutch and European history is excellent preparation for a career in national heritage or the Dutch teaching track.</p>
+                         </div>`;
+            }
+
+            // --- Core Narrative & Integrated Personalization ---
+            html += `<div class="results-section"><h3>Your Journey in History and International Studies</h3><p>Here's what sets our programme apart:</p>`;
+
+            // 1. Community
+            let communityPersonalization = '';
+            if (userPath === 'pathA' && answers.q2a && answers.q2a.culture === 'high') {
+                communityPersonalization = "For a student like you, moving to a new city, this close-knit and diverse community is the ideal environment to connect with peers and professors from day one.";
+            }
+            html += `<h4>Learn in a close-knit community</h4>
+                     <p>You'll learn in <strong>small seminars of 15-20 students</strong>, not anonymous lecture halls. This approach combines the personal attention of a liberal arts college with the resources of a major research university. Our international faculty will know you by name, mentor you directly, and help you develop your own analytical voice. ${communityPersonalization}</p>`;
+
+            // 2. Global Perspective
+            let academicRecs = [];
+            const academicInterests = answers.q3 || {};
+            if(academicInterests.latin_america === 'high') academicRecs.push({ name: 'Latin America in Modern History', interest: 'Latin America'});
+            if(academicInterests.asia === 'high') academicRecs.push({ name: 'Global Southeast Asia / China in Modern History', interest: 'East and Southeast Asia'});
+            if(academicInterests.africa === 'high') academicRecs.push({ name: 'Sub-Saharan Africa 1800-present', interest: 'Sub-Saharan Africa'});
+            if(academicInterests.middle_east === 'high') academicRecs.push({ name: 'The Middle East in Contemporary History', interest: 'the Middle East'});
+            if(academicInterests.environment === 'high') academicRecs.push({ name: 'Global Environmental Challenges', interest: 'Environmental History'});
+            if(academicInterests.antiquity === 'high') academicRecs.push({ name: 'specialized ACASA courses on antiquity', interest: 'Ancient Empires'});
+            if(academicInterests.capitalism === 'high') academicRecs.push({ name: 'Capitalism & Inequality', interest: 'Global Inequality'});
+            
+            html += `<h4>Develop a truly global perspective</h4>
+                     <p>The HIS track is designed to move beyond Eurocentric perspectives. The curriculum examines the history of all world regions through their connections, offering long-term perspectives on today’s most urgent challenges.</p>`;
+
+            if (academicRecs.length > 0) {
+                const listItems = academicRecs.map(r => `<li>Your interest in <strong>${r.interest}</strong> connects perfectly with our specialized course on <strong>'${r.name}'</strong>.</li>`).join('');
+                html += `<div style="margin-top: -15px;">
+                            <p>Based on your interests, here are some second-year courses where you can specialize:</p>
+                            <ul>${listItems}</ul>
+                         </div>`;
+            }
+
+            // 3. Engaged Historian
+            let engagementPersonalization = '';
+            const careerInterests = answers.q5 || {};
+            const skillInterests = answers.q4 || {};
+            if (careerInterests.museum === 'high' && skillInterests.internship === 'high') {
+                 engagementPersonalization = "For you, with your interest in museums, this means exploring how public history shapes contemporary society. You'll engage directly with the politics of memory in our course <strong>'World Heritage & Conflict'</strong>, and the <strong>internship</strong> you're interested in will allow you to put that engagement into practice at one of Amsterdam's world-class museums.";
+            } else if (careerInterests.ngo === 'high' || careerInterests.journalism === 'high') {
+                let courses = [];
+                if (academicInterests.capitalism === 'high') courses.push("'Capitalism & Inequality'");
+                if (academicInterests.africa === 'high') courses.push("'Sub-Saharan Africa'");
+                let courseText = courses.length > 0 ? `in courses like ${courses.join(' and ')}` : '';
+                engagementPersonalization = `This philosophy aligns perfectly with your interests. You'll engage with today's most urgent issues ${courseText}. An <strong>internship at an NGO or media outlet</strong> is a perfect way to apply these skills directly.`;
+            }
+            html += `<h4>Become an engaged historian</h4>
+                     <p>At VU Amsterdam, we believe history is a crucial tool for understanding the present. Our goal is to train you to become an <strong>"engaged historian"</strong>—someone who thinks independently and contributes responsibly to society. This is woven into our courses, our methods, and practical experiences like internships. ${engagementPersonalization}</p>`;
+
+            // 4. Forge Your Own Path
+            let pathPersonalization = '';
+            const skillInterestsPath = answers.q4 || {};
+            
+            if (skillInterestsPath.research === 'high') {
+                pathPersonalization = `<p>Your passion for independent research makes this freedom especially valuable. The ability to freely choose your BA thesis topic means you can dive deep into a subject you truly care about, making your final project a true capstone of your academic journey.</p>`;
+            } else if (skillInterestsPath.internship === 'high') {
+                const careerInterestsPath = answers.q5 || {};
+                let careerText = '';
+                if(careerInterestsPath.museum === 'high') careerText = 'in the museum and heritage sector';
+                if(careerInterestsPath.ngo === 'high') careerText = 'at an international NGO';
+                pathPersonalization = `<p>This flexibility is a huge advantage for your career goals. Your strong interest in an <strong>internship</strong> means you can use your third-year minor space to gain direct professional experience ${careerText}, building a portfolio that will make you stand out to employers.</p>`;
+            }
+
+            html += `<h4>Forge your own path</h4>
+                     <p>The programme gives you significant freedom to follow your curiosity. This culminates in the third year, where you have the flexibility to <strong>study abroad</strong>, complete an <strong>internship</strong>, and—most importantly—choose your <strong>BA thesis topic freely</strong>.</p>
+                     ${pathPersonalization}`;
+
+            html += `</div>`;
+            
+            // --- Final CTA Box ---
+             html += `
+                <div class="cta-box">
+                    <h3>Ready for the Next Step?</h3>
+                    <p style="margin-bottom: 20px;">Explore the official programme page to learn more about the curriculum, admission requirements, and student life at VU Amsterdam.</p>
+                    <a href="https://vu.nl/en/education/bachelor/history-and-international-studies" target="_blank" class="btn-secondary">Explore the Programme Website</a>
+                </div>`;
+
+            return html;
+        }
+
+    </script>
+</body>
+</html>
+
+
+
